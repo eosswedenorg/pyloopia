@@ -1,6 +1,7 @@
 
 from .types import Domain, Subdomain, ZoneRecord
 
+
 class Factory :
 
     def __init__(self, client) :

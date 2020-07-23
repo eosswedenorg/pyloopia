@@ -1,16 +1,17 @@
 
-from .exceptions import *
+from .exceptions import AuthException, DomainOccupiedException, RateLimitException, BadIndataException, UnknownException
 from xmlrpc.client import ServerProxy as XMLRPC_Client
+
 
 class Client :
 
     def __init__(self, username, password) :
-        self._username   = username
-        self._password   = password
-        self._xmlrpc     = XMLRPC_Client(
-            uri = 'https://api.loopia.se/RPCSERV',
-            encoding = 'utf-8',
-            allow_none = True
+        self._username = username
+        self._password = password
+        self._xmlrpc = XMLRPC_Client(
+            uri='https://api.loopia.se/RPCSERV',
+            encoding='utf-8',
+            allow_none=True
         )
 
     def call(self, resource, *args) :
@@ -25,7 +26,7 @@ class Client :
         if response == "OK" :
             return True
         elif response == 'AUTH_ERROR' :
-            raise AuthException();
+            raise AuthException()
         elif response == 'DOMAIN_OCCUPIED' :
             raise DomainOccupiedException()
         elif response == 'RATE_LIMITED' :
@@ -50,8 +51,8 @@ class Client :
     Zone records
     '''
 
-    def getZoneRecords(self, domain, subdomain = None) :
-        if subdomain == None :
+    def getZoneRecords(self, domain, subdomain=None) :
+        if subdomain is None :
             return self._xmlrpc.getZoneRecords(self._username, self._password, domain)
         return self._xmlrpc.getZoneRecords(self._username, self._password, domain, subdomain)
 

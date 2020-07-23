@@ -2,6 +2,7 @@
 from .client import Client
 from .factory import Factory
 
+
 class api :
     _client = None
     _factory = None
@@ -20,7 +21,7 @@ class api :
         data = self._client.getDomain(name)
         return self._factory.domain(data)
 
-    def getSubdomain(self, domain, subdomain = "@") :
+    def getSubdomain(self, domain, subdomain="@") :
         domain = self.getDomain(domain)
         if domain :
             for sub in domain.getSubdomains() :

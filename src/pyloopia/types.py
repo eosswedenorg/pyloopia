@@ -1,20 +1,21 @@
 
-'''
-Base class for types.
-'''
+
 class Type :
+    '''
+    Base class for types.
+    '''
 
     def __init__(self, factory, **data) :
         self._factory = factory
         self._client = factory.client
 
-        for k,v in data.items() :
+        for k, v in data.items() :
             if hasattr(self, k) :
                 setattr(self, k, v)
 
     def toArray(self) :
         vars = {}
-        for k,v in self.__class__.__dict__.items() :
+        for k, v in self.__class__.__dict__.items() :
             if k.startswith('_') :
                 continue
             if hasattr(self, k) :
@@ -25,6 +26,7 @@ class Type :
 
     def __repr__(self):
         return str(self.toArray())
+
 
 class Domain(Type) :
 
@@ -43,6 +45,7 @@ class Domain(Type) :
                 self.subdomains.append(self._factory.subdomain(self.name, sub))
         return self.subdomains
 
+
 class Subdomain(Type) :
 
     _domain = None
@@ -57,16 +60,17 @@ class Subdomain(Type) :
                 self.zonerecords.append(self._factory.zonerecord(self._domain, self.name, data))
         return self.zonerecords
 
+
 class ZoneRecord(Type) :
 
-    _domain     = None
-    _subdomain  = None
+    _domain = None
+    _subdomain = None
 
-    id          = None
-    type        = None
-    ttl         = 3600
-    priority    = 0
-    rdata       = None
+    id = None
+    type = None
+    ttl = 3600
+    priority = 0
+    rdata = None
 
     def create(self) :
         return self._client.createZoneRecord(self._domain, self._subdomain, self._marshal())
