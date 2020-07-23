@@ -27,7 +27,7 @@ class BadIndataException(ApiException) :
         return "Invalid input data."
 
 
-class UnkownException(ApiException) :
+class UnknownException(ApiException) :
 
     def __str__(self) :
         return "Unknown API Error."
