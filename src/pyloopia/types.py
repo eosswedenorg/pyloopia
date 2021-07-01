@@ -73,7 +73,7 @@ class ZoneRecord(Type) :
     rdata = None
 
     def create(self) :
-        return self._client.createZoneRecord(self._domain, self._subdomain, self._marshal())
+        return self._client.addZoneRecord(self._domain, self._subdomain, self._marshal())
 
     def delete(self) :
         return self._client.deleteZoneRecord(self._domain, self._subdomain, self.id)
