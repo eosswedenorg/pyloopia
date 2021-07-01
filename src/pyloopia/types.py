@@ -45,6 +45,13 @@ class Domain(Type) :
                 self.subdomains.append(self._factory.subdomain(self.name, sub))
         return self.subdomains
 
+    # Add a subdomain to this domain.
+    def addSubdomain(self, subdomain) :
+        result = self._client.addSubdomain(self.name, subdomain)
+        if result :
+            return self._factory.subdomain(self.name, subdomain)
+        return result
+
 
 class Subdomain(Type) :
 
