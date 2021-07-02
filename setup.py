@@ -10,7 +10,7 @@ README = (BASE_PATH / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="pyloopia",
-    version="0.1.0",
+    version="0.1.1",
     description="python interface for Loopia API",
     long_description=README,
     long_description_content_type="text/markdown",
