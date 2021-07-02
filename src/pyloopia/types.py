@@ -31,12 +31,16 @@ class Type :
 class Domain(Type) :
 
     name = None
-    registered = 0
+    registered = None
     paid = 0
     reference_no = 0
-    renewal_status = None
+    renewal_status = 0
     expiration_date = None
-    subdomains = []
+    subdomains = None
+
+    def __init__(self, factory, **data) :
+        self.subdomains = []
+        super().__init__(factory, **data)
 
     # Get all subdomains for this domain.
     def getSubdomains(self) :
@@ -58,7 +62,11 @@ class Subdomain(Type) :
     _domain = None
 
     name = None
-    zonerecords = []
+    zonerecords = None
+
+    def __init__(self, factory, **data) :
+        self.zonerecords = []
+        super().__init__(factory, **data)
 
     # Get all zone records for this subdomain
     def getZoneRecords(self) :
