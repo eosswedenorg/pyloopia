@@ -16,11 +16,4 @@ class Factory :
         return Subdomain(self, _domain=domain, name=subdomain)
 
     def zonerecord(self, domain, subdomain, data) :
-        return ZoneRecord(self,
-            _domain=domain,
-            _subdomain=subdomain,
-            id=data["record_id"],
-            type=data['type'],
-            ttl=data["ttl"],
-            priority=data["priority"],
-            rdata=data["rdata"])
+        return ZoneRecord(self, _domain=domain, _subdomain=subdomain, **data)
