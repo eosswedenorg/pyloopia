@@ -22,19 +22,23 @@ class Client :
         # Call the api and get the response
         response = func(self._username, self._password, *args)
 
-        # Handle reponse codes.
-        if response == "OK" :
-            return True
-        elif response == 'AUTH_ERROR' :
-            raise AuthException()
-        elif response == 'DOMAIN_OCCUPIED' :
-            raise DomainOccupiedException()
-        elif response == 'RATE_LIMITED' :
-            raise RateLimitException()
-        elif response == 'BAD_INDATA' :
-            raise BadIndataException()
-        elif response == 'UNKNOWN_ERROR' :
-            raise UnknownException()
+        # Check if the response could be an error.
+        if type(response) is list and len(response) == 1 and type(response[0]) is str  :
+            code = response[0]
+
+            # Handle reponse codes.
+            if code == "OK" :
+                return True
+            elif code == 'AUTH_ERROR' :
+                raise AuthException()
+            elif code == 'DOMAIN_OCCUPIED' :
+                raise DomainOccupiedException()
+            elif code == 'RATE_LIMITED' :
+                raise RateLimitException()
+            elif code == 'BAD_INDATA' :
+                raise BadIndataException()
+            elif code == 'UNKNOWN_ERROR' :
+                raise UnknownException()
 
         return response
 
@@ -44,8 +48,14 @@ class Client :
     def getDomain(self, name) :
         return self.call("getDomain", name)
 
+    def addDomain(self, name) :
+        return self.call("addDomain", name)
+
     def getSubdomains(self, domain) :
         return self.call("getSubdomains", domain)
+
+    def addSubdomain(self, domain, subdomain) :
+        return self.call("addSubdomain", domain, subdomain)
 
     '''
     Zone records
