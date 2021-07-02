@@ -53,14 +53,14 @@ class Client :
 
     def getZoneRecords(self, domain, subdomain=None) :
         if subdomain is None :
-            return self._xmlrpc.getZoneRecords(self._username, self._password, domain)
-        return self._xmlrpc.getZoneRecords(self._username, self._password, domain, subdomain)
+            return self.call("getZoneRecords", domain)
+        return self.call("getZoneRecords", domain, subdomain)
 
     def addZoneRecord(self, domain, subdomain, record) :
-        return self._xmlrpc.addZoneRecord(self._username, self._password, domain, subdomain, record)
+        return self.call("addZoneRecord", domain, subdomain, record)
 
     def removeZoneRecord(self, domain, subdomain, record_id) :
-        return self._xmlrpc.removeZoneRecord(self._username, self._password, domain, subdomain, record_id)
+        return self.call("removeZoneRecord", domain, subdomain, record_id)
 
     def updateZoneRecord(self, domain, subdomain, record) :
-        return self._xmlrpc.updateZoneRecord(self._username, self._password, domain, subdomain, record)
+        return self.call("updateZoneRecord", domain, subdomain, record)
