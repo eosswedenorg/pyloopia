@@ -73,29 +73,23 @@ class ZoneRecord(Type) :
     _domain = None
     _subdomain = None
 
-    id = None
+    record_id = None
     type = None
     ttl = 3600
     priority = 0
     rdata = None
 
     def create(self) :
-        return self._client.addZoneRecord(self._domain, self._subdomain, self._marshal())
+        return self._client.addZoneRecord(self._domain, self._subdomain, self.toArray())
 
     def delete(self) :
         return self._client.deleteZoneRecord(self._domain, self._subdomain, self.id)
 
     def update(self) :
-        return self._client.updateZoneRecord(self._domain, self._subdomain, self._marshal())
+        return self._client.updateZoneRecord(self._domain, self._subdomain, self.toArray())
 
     def save(self) :
         # if we have a id, update.
-        if self.id :
+        if self.record_id :
             return self.update()
         return self.create()
-
-    def _marshal(self) :
-        payload = self.toArray()
-        payload["record_id"] = payload["id"]
-        del payload["id"]
-        return payload
